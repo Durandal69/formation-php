@@ -1,0 +1,287 @@
+body {
+    background: linear-gradient(120deg, #f8fafc 0%, #e0e7ff 100%);
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+    color: #222;
+    margin: 0;
+    padding: 0;
+}
+
+/* Bulles animées en fond */
+.bubble {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.18;
+    animation: float 12s infinite linear;
+    z-index: 0;
+}
+.bubble1 { width: 120px; height: 120px; background: #818cf8; left: 5vw; top: 10vh; animation-delay: 0s; }
+.bubble2 { width: 80px; height: 80px; background: #f472b6; left: 80vw; top: 20vh; animation-delay: 2s; }
+.bubble3 { width: 100px; height: 100px; background: #fbbf24; left: 60vw; top: 70vh; animation-delay: 4s; }
+.bubble4 { width: 60px; height: 60px; background: #34d399; left: 20vw; top: 80vh; animation-delay: 6s; }
+.bubble5 { width: 90px; height: 90px; background: #a78bfa; left: 50vw; top: 5vh; animation-delay: 8s; }
+
+@keyframes float {
+    0% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-40px) scale(1.1); }
+    100% { transform: translateY(0) scale(1); }
+}
+
+h1 {
+    text-align: center;
+    color: #a21caf;
+    margin-top: 48px;
+    font-size: 2.8rem;
+    letter-spacing: 2px;
+    font-family: 'Baloo 2', 'Segoe UI', cursive, sans-serif;
+    text-shadow: 2px 2px 0 #fbbf24, 0 4px 12px #818cf844;
+    position: relative;
+    z-index: 1;
+}
+
+form {
+    max-width: 520px;
+    margin: 48px auto 32px auto;
+    background: linear-gradient(120deg, #fff1f2 0%, #e0e7ff 100%);
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(79,70,229,0.18), 0 1.5px 0 #fbbf24;
+    padding: 40px 32px 32px 32px;
+    border: 2px solid #a78bfa;
+    position: relative;
+    z-index: 1;
+}
+
+form div {
+    margin-bottom: 22px;
+    position: relative;
+}
+
+label {
+    display: block;
+    font-weight: 700;
+    color: #f59e42;
+    margin-bottom: 7px;
+    font-size: 1.08rem;
+    letter-spacing: 1px;
+    text-shadow: 0 1px 0 #fffde7;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 2px solid #c7d2fe;
+    background: #f3f4f6;
+    font-size: 1.08rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 4px #818cf822;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+    border-color: #a21caf;
+    outline: none;
+    box-shadow: 0 0 0 2px #fbbf24aa;
+}
+
+input[type="checkbox"] {
+    accent-color: #fbbf24;
+    transform: scale(1.3);
+    margin-right: 10px;
+    box-shadow: 0 1px 4px #818cf822;
+}
+
+input[type="submit"] {
+    background: linear-gradient(90deg, #fbbf24 0%, #a21caf 100%);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 36px;
+    font-size: 1.15rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 12px #818cf822;
+    transition: background 0.2s, transform 0.2s;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+}
+
+input[type="submit"]:hover {
+    background: linear-gradient(90deg, #a21caf 0%, #fbbf24 100%);
+    transform: translateY(-2px) scale(1.07) rotate(-1deg);
+    box-shadow: 0 4px 24px #fbbf2444;
+}
+
+textarea {
+    min-height: 90px;
+    resize: vertical;
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+}
+
+.erreur, .error, .alert {
+    background: linear-gradient(90deg, #fee2e2 0%, #fbbf24 100%);
+    color: #a21caf;
+    border: 2px solid #fbbf24;
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 22px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px #818cf822;
+}
+
+select {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 2px solid #c7d2fe;
+    background: linear-gradient(90deg, #fbbf24 0%, #e0e7ff 100%);
+    font-size: 1.08rem;
+    color: #4f46e5;
+    box-shadow: 0 1px 4px #818cf822;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+    cursor: pointer;
+}
+select:focus {
+    border-color: #a21caf;
+    outline: none;
+    box-shadow: 0 0 0 2px #fbbf24aa;
+}
+
+/* Flèche custom */
+select {
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%234f46e5" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 24px 24px;
+}
+
+table {
+    width: 90%;
+    margin: 32px auto;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px #818cf822;
+    overflow: hidden;
+    font-size: 1.08rem;
+    z-index: 1;
+}
+
+thead {
+    background: linear-gradient(90deg, #fbbf24 0%, #a21caf 100%);
+}
+
+thead th {
+    color: #fff;
+    font-weight: bold;
+    padding: 16px 10px;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #a78bfa;
+    text-shadow: 1px 1px 0 #fbbf24;
+}
+
+tbody tr {
+    transition: background 0.2s;
+}
+
+tbody tr:nth-child(even) {
+    background: #f3f4f6;
+}
+
+tbody tr:hover {
+    background: #fbbf24aa;
+}
+
+td {
+    padding: 12px 10px;
+    text-align: center;
+    border-bottom: 1px solid #e0e7ff;
+}
+
+a[href*="create.php"] {
+    display: inline-block;
+    margin: 24px auto 0 auto;
+    background: linear-gradient(90deg, #fbbf24 0%, #a21caf 100%);
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.15rem;
+    padding: 12px 32px;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 2px 12px #818cf822;
+    letter-spacing: 1px;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    z-index: 1;
+}
+
+a[href*="create.php"]:hover {
+    background: linear-gradient(90deg, #a21caf 0%, #fbbf24 100%);
+    transform: translateY(-2px) scale(1.07) rotate(-1deg);
+    box-shadow: 0 4px 24px #fbbf2444;
+    color: #fff;
+}
+
+a[href*="delete.php"] {
+    text-decoration: none;
+    color: #a21caf;
+    font-weight: bold;
+}
+
+a[href*="delete.php"]:hover {
+    color: #fbbf24;
+}
+
+a[href*="update.php"] {
+    text-decoration: none;
+    color: #a21caf;
+    font-weight: bold;
+}
+
+a[href*="update.php"]:hover {
+    color: #fbbf24;
+}
+
+.btn-action, input[type="submit"] {
+    background: linear-gradient(90deg, #fbbf24 0%, #a21caf 100%);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 36px;
+    font-size: 1.15rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 12px #818cf822;
+    transition: background 0.2s, transform 0.2s;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-action:hover, input[type="submit"]:hover {
+    background: linear-gradient(90deg, #a21caf 0%, #fbbf24 100%);
+    transform: translateY(-2px) scale(1.07) rotate(-1deg);
+    box-shadow: 0 4px 24px #fbbf2444;
+    color: #fff;
+}
+
+@media (max-width: 600px) {
+    form {
+        padding: 12px 4px;
+    }
+    h1 {
+        font-size: 1.3rem;
+    }
+}
