@@ -8,13 +8,13 @@ if ($_POST) {
         $nom = $_POST['Nom'];
         $prenom = $_POST['Prénom'];
         $email = $_POST['Email'];
-        $telephone = $_POST['Téléphone'];
-        $adresse = $_POST['Adresse'];
-        $date_naissance = $_POST['Date_de_naissance'];
-        $statut = $_POST['Statut'];
+        $telephone = isset($_POST['Téléphone']) && $_POST['Téléphone'] !== '' ? $_POST['Téléphone'] : null;
+        $adresse = isset($_POST['Adresse']) && $_POST['Adresse'] !== '' ? $_POST['Adresse'] : null;
+        $date_naissance = isset($_POST['Date_de_naissance']) && $_POST['Date_de_naissance'] !== '' ? $_POST['Date_de_naissance'] : null;
+        $statut = isset($_POST['Statut']) && $_POST['Statut'] !== '' ? $_POST['Statut'] : 'Actif';
 
     $membreModel->create($nom, $prenom, $email, $telephone, $adresse, $date_naissance, $statut);
-    header('Location: index.php?message=created');
+    header('Location: ../../index.php?message=created');
     exit;
 }
 ?>
@@ -63,7 +63,8 @@ if ($_POST) {
             <input type="text" name="Statut" id="Statut">
         </div>
         <input type="submit" value="Ajouter" class="btn-action">
-        <a href="index.php" class="btn-action">Annuler</a>
+        <input type="reset" class="btn-action" value="Annuler">
+        <a href="../../index.php" class="btn-action">Retour</a>
     </form>
 </body>
 </html>

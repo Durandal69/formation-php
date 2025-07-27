@@ -3,8 +3,7 @@ require_once '../../config/database.php';
 require_once '../../classes/Emprunt.php';
 
 $empruntModel = new Emprunt($pdo);
-$id = $_GET['id'];
-$emprunt = $empruntModel->findById($id);
+$emprunt = $empruntModel->findById($_GET['id']);
 
 if ($_POST) {
     $ID_livre = $_POST['ID_livre'] ?? '';
