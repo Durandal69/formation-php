@@ -1,22 +1,28 @@
 <?php
+try {
+    require_once 'config/database.php';
+    require_once 'classes/Livre.php';
+    require_once 'classes/Auteur.php';
+    require_once 'classes/Membre.php';
+    require_once 'classes/Emprunt.php';
 
-require_once 'config/database.php';
-require_once 'classes/Livre.php';
-require_once 'classes/Auteur.php';
-require_once 'classes/Membre.php';
-require_once 'classes/Emprunt.php';
+    $livreModel = new Livre($pdo);
+    $livres = $livreModel->getAll();
 
-$livreModel = new Livre($pdo);
-$livres = $livreModel->getAll();
+    $auteurModel = new Auteur($pdo);
+    $auteurs = $auteurModel->getAll();
 
-$auteurModel = new Auteur($pdo);
-$auteurs = $auteurModel->getAll();
+    $membreModel = new Membre($pdo);
+    $membres = $membreModel->getAll();
 
-$membreModel = new Membre($pdo);
-$membres = $membreModel->getAll();
-
-$empruntModel = new Emprunt($pdo);
-$emprunts = $empruntModel->getAll();
+    $empruntModel = new Emprunt($pdo);
+    $emprunts = $empruntModel->getAll();
+} catch (Exception $e) {
+    echo "<div style='color:red; font-weight:bold; padding:1em; background:#ffeaea; border:2px solid #e53935; margin:2em auto; max-width:600px; border-radius:8px;'>
+            Une erreur est survenue : " . htmlspecialchars($e->getMessage()) . "
+          </div>";
+    exit;
+}
 ?>
 
 
@@ -40,10 +46,10 @@ $emprunts = $empruntModel->getAll();
 
 
 
-    <h1><button class="btn-action" onclick="toggleLivres()">Liste des livres</button>
-    <button class="btn-action" onclick="toggleAuteurs()">Liste des auteurs</button>
-    <button class="btn-action" onclick="toggleMembres()">Liste des membres</button>
-    <button class="btn-action" onclick="toggleEmprunts()">Liste des emprunts</button></h1>
+    <h1><button class="btn-action" onclick="toggleAll(true, false, false, false)">Liste des livres</button>
+    <button class="btn-action" onclick="toggleAll(false, true, false, false)">Liste des auteurs</button>
+    <button class="btn-action" onclick="toggleAll(false, false, true, false)">Liste des membres</button>
+    <button class="btn-action" onclick="toggleAll(false, false, false, true)">Liste des emprunts</button></h1>
     <div id="tableLivres" style="display: none;">
         <a href="pages/livres/create.php">Ajouter un livre</a>
 
@@ -149,8 +155,8 @@ $emprunts = $empruntModel->getAll();
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>ID Livre</th>
-                    <th>ID Membre</th>
+                    <th>Titre</th>
+                    <th>Membre</th>
                     <th>Date d'emprunt</th>
                     <th>Date de retour prévue</th>
                     <th>Date de retour effective</th>
@@ -161,8 +167,8 @@ $emprunts = $empruntModel->getAll();
                 <?php foreach ($emprunts as $emprunt): ?>
                     <tr>
                         <td><?php echo htmlspecialchars($emprunt->ID); ?></td>
-                        <td><?php echo htmlspecialchars($emprunt->ID_livre); ?></td>
-                        <td><?php echo htmlspecialchars($emprunt->ID_membre ?? "N/A"); ?></td>
+                        <td><?php echo htmlspecialchars($emprunt->Titre); ?></td>
+                        <td><?php echo htmlspecialchars($emprunt->Nom_complet ?? "N/A"); ?></td>
                         <td><?php echo htmlspecialchars($emprunt->Date_emprunt ?? "N/A") ?></td>
                         <td><?php echo htmlspecialchars($emprunt->Date_retour_prevue ?? "N/A") ?></td>
                         <td><?php echo htmlspecialchars($emprunt->Date_retour_effective ?? "N/A") ?></td>

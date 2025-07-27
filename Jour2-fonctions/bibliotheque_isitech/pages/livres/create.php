@@ -1,29 +1,36 @@
 <?php
-require_once '../../config/database.php';
-require_once '../../classes/Livre.php';
+try {
+    require_once '../../config/database.php';
+    require_once '../../classes/Livre.php';
 
-$livreModel = new Livre($pdo);
+    $livreModel = new Livre($pdo);
 
-$errors = [];
+    $errors = [];
 
-// Traitement du formulaire
-if ($_POST) {
-    $titre = $_POST['Titre'] ?? ''; // Si ça n'existe pas, on met une chaîne vide
-    $isbn = $_POST['ISBN'] ?? '';
-    $auteurId = isset($_POST['Reference_vers_auteur']) && $_POST['Reference_vers_auteur'] !== '' ? (int)$_POST['Reference_vers_auteur'] : null;
-    $genreId = isset($_POST['Reference_vers_genre']) && $_POST['Reference_vers_genre'] !== '' ? (int)$_POST['Reference_vers_genre'] : null;
-    $annee_publication = isset($_POST['Annee_de_publication']) && $_POST['Annee_de_publication'] !== '' ? (int)$_POST['Annee_de_publication'] : '0000'; // Valeur 0000 par défaut si vide
-    $nb_pages = isset($_POST['Nombre_de_pages']) && $_POST['Nombre_de_pages'] !== '' ? (int)$_POST['Nombre_de_pages'] : null; // Valeur null par défaut si vide (comme pour auteurID et genreId)
-    $resume = $_POST['Resume'] ?? '';
-    $status_disponibilite = $_POST['Status_de_disponibilite'] ?? '';
-    $index_appropries = $_POST['Index_appropries'] ?? '';
+    // Traitement du formulaire
+    if ($_POST) {
+        $titre = $_POST['Titre'] ?? ''; // Si ça n'existe pas, on met une chaîne vide
+        $isbn = $_POST['ISBN'] ?? '';
+        $auteurId = isset($_POST['Reference_vers_auteur']) && $_POST['Reference_vers_auteur'] !== '' ? (int)$_POST['Reference_vers_auteur'] : null;
+        $genreId = isset($_POST['Reference_vers_genre']) && $_POST['Reference_vers_genre'] !== '' ? (int)$_POST['Reference_vers_genre'] : null;
+        $annee_publication = isset($_POST['Annee_de_publication']) && $_POST['Annee_de_publication'] !== '' ? (int)$_POST['Annee_de_publication'] : '0000'; // Valeur 0000 par défaut si vide
+        $nb_pages = isset($_POST['Nombre_de_pages']) && $_POST['Nombre_de_pages'] !== '' ? (int)$_POST['Nombre_de_pages'] : null; // Valeur null par défaut si vide (comme pour auteurID et genreId)
+        $resume = $_POST['Resume'] ?? '';
+        $status_disponibilite = $_POST['Status_de_disponibilite'] ?? '';
+        $index_appropries = $_POST['Index_appropries'] ?? '';
 
-    // Validation des données (plus tard)
+        // Validation des données (plus tard)
 
-    // Gestion des erreurs (plus tard)
-    $livreModel->create($titre, $isbn, $auteurId, $genreId, $annee_publication, $nb_pages, $resume, $status_disponibilite, $index_appropries);
-    header('Location: ../../index.php?message=created'); // Redirection après création réussie
+        // Gestion des erreurs (plus tard)
+        $livreModel->create($titre, $isbn, $auteurId, $genreId, $annee_publication, $nb_pages, $resume, $status_disponibilite, $index_appropries);
+        header('Location: ../../index.php?message=created'); // Redirection après création réussie
 
+    }
+} catch (Exception $e) {
+    echo "<div style='color:red; font-weight:bold; padding:1em; background:#ffeaea; border:2px solid #e53935; margin:2em auto; max-width:600px; border-radius:8px;'>
+            Une erreur est survenue : " . htmlspecialchars($e->getMessage()) . "
+          </div>";
+    exit;
 }
 
 
@@ -32,12 +39,14 @@ if ($_POST) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Creation d'un livre</title>
     <link rel="stylesheet" href="../../css/style.css">
 </head>
+
 <body>
     <div class="bubble bubble1"></div>
     <div class="bubble bubble2"></div>
@@ -58,7 +67,7 @@ if ($_POST) {
             <label for="Reference_vers_auteur">Auteur ID:</label>
             <input type="number" name="Reference_vers_auteur" id="Reference_vers_auteur">
         </div>
-        <div>   
+        <div>
             <label for="Reference_vers_genre">Genre ID:</label>
             <input type="number" name="Reference_vers_genre" id="Reference_vers_genre">
         </div>
@@ -86,7 +95,7 @@ if ($_POST) {
             <label for="Index_appropries">Index appropriés:</label>
             <input type="text" name="Index_appropries" id="Index_appropries">
         </div>
-        
+
 
 
         <input type="submit" value="Ajouter">
@@ -94,4 +103,5 @@ if ($_POST) {
         <a href="../../index.php" class="btn-action">Retour</a>
     </form>
 </body>
+
 </html>

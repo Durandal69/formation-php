@@ -21,7 +21,13 @@ class Emprunt
     // READ - Récupérer tous les emprunts
     public function getAll()
     {
-        $sql = "SELECT * FROM emprunts ORDER BY Date_emprunt DESC";
+        $sql = "SELECT emprunts.*,
+            CONCAT(membres.Nom, ' ', membres.Prénom) AS Nom_complet,
+            livres.Titre
+            FROM emprunts
+            JOIN membres ON ID_membre = membres.ID
+            JOIN livres ON ID_livre = livres.id 
+            ORDER BY Date_emprunt DESC";
         $stmt = $this->pdo->query($sql);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
@@ -29,7 +35,13 @@ class Emprunt
     // READ - Récupérer un emprunt par son ID
     public function findById($id)
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM emprunts WHERE id = ?');
+        $stmt = $this->pdo->prepare("SELECT emprunts.*,
+            CONCAT(membres.Nom, ' ', membres.Prénom) AS Nom_complet,
+            livres.Titre
+            FROM emprunts
+            JOIN membres ON ID_membre = membres.ID
+            JOIN livres ON ID_livre = livres.id
+            WHERE emprunts.id = ?");
         $stmt->execute([$id]);
         $data = $stmt->fetch(PDO::FETCH_OBJ);
         return $data ?: null;
@@ -49,5 +61,4 @@ class Emprunt
         $stmt = $this->pdo->prepare('DELETE FROM emprunts WHERE id = ?');
         return $stmt->execute([$id]);
     }
-
 }

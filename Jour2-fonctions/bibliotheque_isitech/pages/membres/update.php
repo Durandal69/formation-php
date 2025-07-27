@@ -1,32 +1,40 @@
 <?php
+try {
+    require_once '../../config/database.php';
+    require_once '../../classes/Membre.php';
 
-require_once '../../config/database.php';
-require_once '../../classes/Membre.php';
+    $membreModel = new Membre($pdo);
+    $membre = $membreModel->findById($_GET['id']);
 
-$membreModel = new Membre($pdo);
-$membre = $membreModel->findById($_GET['id']);
+    if ($_POST) {
+        $Nom = $_POST['Nom'] ?? '';
+        $Prénom = $_POST['Prénom'] ?? '';
+        $Email = $_POST['Email'] ?? '';
+        $Téléphone = $_POST['Téléphone'] ?? '';
+        $Adresse = $_POST['Adresse'] ?? '';
+        $Date_de_naissance = isset($_POST['Date_de_naissance']) && $_POST['Date_de_naissance'] !== '' ? $_POST['Date_de_naissance'] : null;
+        $Statut = $_POST['Statut'] ?? '';
 
-if ($_POST) {
-    $Nom = $_POST['Nom'] ?? '';
-    $Prénom = $_POST['Prénom'] ?? '';
-    $Email = $_POST['Email'] ?? '';
-    $Téléphone = $_POST['Téléphone'] ?? '';
-    $Adresse = $_POST['Adresse'] ?? '';
-    $Date_de_naissance = isset($_POST['Date_de_naissance']) && $_POST['Date_de_naissance'] !== '' ? $_POST['Date_de_naissance'] : null  ;
-    $Statut = $_POST['Statut'] ?? '';
-
-    $membreModel->update($membre->ID, $Nom, $Prénom, $Email, $Téléphone, $Adresse, $Date_de_naissance, $Statut);
-    header('Location: ../../index.php?message=updated');
+        $membreModel->update($membre->ID, $Nom, $Prénom, $Email, $Téléphone, $Adresse, $Date_de_naissance, $Statut);
+        header('Location: ../../index.php?message=updated');
+        exit;
+    }
+} catch (Exception $e) {
+    echo "<div style='color:red; font-weight:bold; padding:1em; background:#ffeaea; border:2px solid #e53935; margin:2em auto; max-width:600px; border-radius:8px;'>
+            Une erreur est survenue : " . htmlspecialchars($e->getMessage()) . "
+          </div>";
     exit;
 }
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>Modifier un membre</title>
     <link rel="stylesheet" href="../../css/style.css">
 </head>
+
 <body>
     <h1>Modifier un membre</h1>
     <form method="POST">
@@ -63,4 +71,5 @@ if ($_POST) {
         <a href="../../index.php" class="btn-action">Retour</a>
     </form>
 </body>
+
 </html>

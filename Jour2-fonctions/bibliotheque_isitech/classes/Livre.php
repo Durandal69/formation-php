@@ -27,7 +27,13 @@ class Livre
     // READ - Récupérer tous les livres
     public function getAll()
     {
-        $sql = "SELECT * FROM livres ORDER BY date_ajout_automatique DESC";
+        $sql = "SELECT livres.*,
+            CONCAT(auteurs.Nom, ' ', auteurs.Prénom) as Nom_complet_auteur,
+            genres.Nom_du_genre as Nom_du_genre
+            FROM livres
+            JOIN auteurs ON Reference_vers_auteur = auteurs.id
+            JOIN genres ON Reference_vers_genre = genres.id
+            ORDER BY date_ajout_automatique DESC";
 
         $stmt = $this->pdo->query($sql);
 
@@ -37,7 +43,13 @@ class Livre
     // READ - Récupérer un livre par son ID
     public function findById($id)
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM livres WHERE id = ?');
+        $stmt = $this->pdo->prepare("SELECT livres.*,
+            CONCAT(auteurs.Nom, ' ', auteurs.Prénom) as Nom_complet_auteur,
+            genres.Nom_du_genre as Nom_du_genre
+            FROM livres
+            JOIN auteurs ON Reference_vers_auteur = auteurs.id
+            JOIN genres ON Reference_vers_genre = genres.id
+            WHERE livres.id = ?");
         $stmt->execute([$id]);
         $data = $stmt->fetch(PDO::FETCH_OBJ);
         return $data ?: null;

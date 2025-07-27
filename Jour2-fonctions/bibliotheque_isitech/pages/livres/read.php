@@ -1,29 +1,35 @@
 <?php
+try {
+    require_once '../../config/database.php';
+    require_once '../../classes/Livre.php';
 
-require_once '../../config/database.php';
-require_once '../../classes/Livre.php';
+    $livreModel = new Livre($pdo);
 
-$livreModel = new Livre($pdo);
+    $errors = [];
 
-$errors = [];
+    $id = $_GET['id'];
 
-$id= $_GET['id'];
-
-$livres = $livreModel->findById($id);
-
-
+    $livres = $livreModel->findById($id);
+} catch (Exception $e) {
+    echo "<div style='color:red; font-weight:bold; padding:1em; background:#ffeaea; border:2px solid #e53935; margin:2em auto; max-width:600px; border-radius:8px;'>
+            Une erreur est survenue : " . htmlspecialchars($e->getMessage()) . "
+          </div>";
+    exit;
+}
 
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Détails du livre</title>
     <link rel="stylesheet" href="../../css/style.css">
 </head>
+
 <body>
     <table>
         <thead>
@@ -31,8 +37,8 @@ $livres = $livreModel->findById($id);
                 <th>ID</th>
                 <th>Titre</th>
                 <th>ISBN</th>
-                <th>Auteur ID</th>
-                <th>Genre ID</th>
+                <th>Auteur</th>
+                <th>Genre</th>
                 <th>Date de publication</th>
                 <th>Nombre de pages</th>
                 <th>Résumé</th>
@@ -47,13 +53,13 @@ $livres = $livreModel->findById($id);
                     <td><?php echo htmlspecialchars($livres->id); ?></td>
                     <td><?php echo htmlspecialchars($livres->Titre); ?></td>
                     <td><?php echo htmlspecialchars($livres->ISBN); ?></td>
-                    <td><?php echo htmlspecialchars($livres->Reference_vers_auteur); ?></td>
-                    <td><?php echo htmlspecialchars($livres->Reference_vers_genre); ?></td>
-                    <td><?php echo htmlspecialchars($livres->Annee_de_publication); ?></td>
-                    <td><?php echo htmlspecialchars($livres->Nombre_de_pages); ?></td>
-                    <td><textarea name="resume" id="resume" cols="20" rows="3" readonly><?php echo htmlspecialchars($livres->Resume); ?></textarea></td>
-                    <td><?php echo htmlspecialchars($livres->Status_de_disponibilite); ?></td>
-                    <td><?php echo htmlspecialchars($livres->Date_ajout_automatique); ?></td>
+                    <td><?php echo htmlspecialchars($livres->Nom_complet_auteur); ?></td>
+                    <td><?php echo htmlspecialchars($livres->Nom_du_genre); ?></td>
+                    <td><?php echo htmlspecialchars($livres->Annee_de_publication ?? ''); ?></td>
+                    <td><?php echo htmlspecialchars($livres->Nombre_de_pages ?? ''); ?></td>
+                    <td><textarea name="resume" id="resume" cols="20" rows="3" readonly><?php echo htmlspecialchars($livres->Resume ?? ''); ?></textarea></td>
+                    <td><?php echo htmlspecialchars($livres->Status_de_disponibilite ?? ''); ?></td>
+                    <td><?php echo htmlspecialchars($livres->Date_ajout_automatique ?? ''); ?></td>
                     <td>
                         <a href="update.php?id=<?php echo $livres->id; ?>">📝</a>
                         <a href="delete.php?id=<?php echo $livres->id; ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce livre ?');">❌</a>
@@ -64,4 +70,5 @@ $livres = $livreModel->findById($id);
     </table>
     <a href="../../index.php" class="btn-action">Retour</a>
 </body>
+
 </html>

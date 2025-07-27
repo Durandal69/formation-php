@@ -1,44 +1,50 @@
 <?php
+try {
+    require_once '../../config/database.php';
+    require_once '../../classes/Livre.php';
 
-require_once '../../config/database.php';
-require_once '../../classes/Livre.php';
+    $livreModel = new Livre($pdo);
+    $livre = $livreModel->findById($_GET['id']);
 
-$livreModel = new Livre($pdo);
-$livre = $livreModel->findById($_GET['id']);
+    $id = $_GET['id'];
 
-$id = $_GET['id'];
+    $errors = [];
+    $success = false;
 
-$errors = [];
-$success = false;
+    if ($_POST) {
+        $livreData = [
+            'id' => $id,
+            'titre' => $_POST['Titre'],
+            'isbn' => $_POST['ISBN'],
+            'auteurId' => isset($_POST['Reference_vers_auteur']) ? (int)$_POST['Reference_vers_auteur'] : null,
+            'genreId' => isset($_POST['Reference_vers_genre']) ? (int)$_POST['Reference_vers_genre'] : null,
+            'annee_publication' => isset($_POST['Annee_de_publication']) ? (int)$_POST['Annee_de_publication'] : '0000', // Valeur 0000 par défaut si vide
+            'nb_pages' => isset($_POST['Nombre_de_pages']) ? (int)$_POST['Nombre_de_pages'] : null, // Valeur null par défaut si vide
+            'status_disponibilite' => $_POST['Status_de_disponibilite'] ?? '',
+            'resume' => $_POST['Resume'] ?? '',
+            'index_appropries' => $_POST['Index_appropries'] ?? '',
+        ];
 
-if ($_POST) {
-    $livreData = [
-        'id' => $id,
-        'titre' => $_POST['Titre'],
-        'isbn' => $_POST['ISBN'],
-        'auteurId' => isset($_POST['Reference_vers_auteur']) ? (int)$_POST['Reference_vers_auteur'] : null,
-        'genreId' => isset($_POST['Reference_vers_genre']) ? (int)$_POST['Reference_vers_genre'] : null,
-        'annee_publication' => isset($_POST['Annee_de_publication']) ? (int)$_POST['Annee_de_publication'] : '0000', // Valeur 0000 par défaut si vide
-        'nb_pages' => isset($_POST['Nombre_de_pages']) ? (int)$_POST['Nombre_de_pages'] : null, // Valeur null par défaut si vide
-        'status_disponibilite' => $_POST['Status_de_disponibilite'] ?? '',
-        'resume' => $_POST['Resume'] ?? '',
-        'index_appropries' => $_POST['Index_appropries'] ?? '',
-    ];
+        $livreModel->update(
+            $livreData['id'],
+            $livreData['titre'],
+            $livreData['isbn'],
+            $livreData['auteurId'],
+            $livreData['genreId'],
+            $livreData['annee_publication'],
+            $livreData['nb_pages'],
+            $livreData['resume'],
+            $livreData['status_disponibilite'],
+            $livreData['index_appropries']
+        );
+        header('Location: ../../index.php?message=updated'); // Redirection après mise à jour réussie
 
-    $livreModel->update(
-        $livreData['id'],
-        $livreData['titre'],
-        $livreData['isbn'],
-        $livreData['auteurId'],
-        $livreData['genreId'],
-        $livreData['annee_publication'],
-        $livreData['nb_pages'],
-        $livreData['resume'],
-        $livreData['status_disponibilite'],
-        $livreData['index_appropries']
-    );
-    header('Location: ../../index.php?message=updated'); // Redirection après mise à jour réussie
-
+    }
+} catch (Exception $e) {
+    echo "<div style='color:red; font-weight:bold; padding:1em; background:#ffeaea; border:2px solid #e53935; margin:2em auto; max-width:600px; border-radius:8px;'>
+            Une erreur est survenue : " . htmlspecialchars($e->getMessage()) . "
+          </div>";
+    exit;
 }
 
 ?>

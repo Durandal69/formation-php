@@ -252,6 +252,16 @@ a[href*="update.php"]:hover {
     color: #fbbf24;
 }
 
+a[href*="read.php"] {
+    text-decoration: none;
+    color: #a21caf;
+    font-weight: bold;
+}
+a[href*="read.php"]:hover {
+    color: #fbbf24;
+}
+
+
 .btn-action, input[type="submit"] {
     background: linear-gradient(90deg, #fbbf24 0%, #a21caf 100%);
     color: #fff;

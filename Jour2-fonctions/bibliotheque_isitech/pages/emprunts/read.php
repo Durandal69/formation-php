@@ -1,10 +1,17 @@
 <?php
+try {
+    require_once '../../config/database.php';
+    require_once '../../classes/Emprunt.php';
 
-require_once '../../config/database.php';
-require_once '../../classes/Emprunt.php';
+    $empruntModel = new Emprunt($pdo);
+    $emprunt = $empruntModel->findById($_GET['id']);
+} catch (Exception $e) {
+    echo "<div style='color:red; font-weight:bold; padding:1em; background:#ffeaea; border:2px solid #e53935; margin:2em auto; max-width:600px; border-radius:8px;'>
+            Une erreur est survenue : " . htmlspecialchars($e->getMessage()) . "
+          </div>";
+    exit;
+}
 
-$empruntModel = new Emprunt($pdo);
-$emprunt = $empruntModel->findById($_GET['id']);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -22,8 +29,8 @@ $emprunt = $empruntModel->findById($_GET['id']);
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>ID Livre</th>
-                    <th>ID Membre</th>
+                    <th>Livre</th>
+                    <th>Membre</th>
                     <th>Date Emprunt</th>
                     <th>Date Retour Prévue</th>
                     <th>Date Retour Effective</th>
@@ -35,8 +42,8 @@ $emprunt = $empruntModel->findById($_GET['id']);
             <tbody>
                 <tr>
                     <td><?php echo htmlspecialchars($emprunt->ID); ?></td>
-                    <td><?php echo htmlspecialchars($emprunt->ID_livre); ?></td>
-                    <td><?php echo htmlspecialchars($emprunt->ID_membre); ?></td>
+                    <td><?php echo htmlspecialchars($emprunt->Titre); ?></td>
+                    <td><?php echo htmlspecialchars($emprunt->Nom_complet); ?></td>
                     <td><?php echo htmlspecialchars($emprunt->Date_emprunt); ?></td>
                     <td><?php echo date($emprunt->Date_retour_prévue ?? ""); ?></td>
                     <td><?php echo date($emprunt->Date_retour_effective ?? "/"); ?></td>

@@ -1,10 +1,11 @@
 <?php
-require_once '../../config/database.php';
-require_once '../../classes/Membre.php';
+try {
+    require_once '../../config/database.php';
+    require_once '../../classes/Membre.php';
 
-$membreModel = new Membre($pdo);
+    $membreModel = new Membre($pdo);
 
-if ($_POST) {
+    if ($_POST) {
         $nom = $_POST['Nom'];
         $prenom = $_POST['Prénom'];
         $email = $_POST['Email'];
@@ -13,19 +14,27 @@ if ($_POST) {
         $date_naissance = isset($_POST['Date_de_naissance']) && $_POST['Date_de_naissance'] !== '' ? $_POST['Date_de_naissance'] : null;
         $statut = isset($_POST['Statut']) && $_POST['Statut'] !== '' ? $_POST['Statut'] : 'Actif';
 
-    $membreModel->create($nom, $prenom, $email, $telephone, $adresse, $date_naissance, $statut);
-    header('Location: ../../index.php?message=created');
+        $membreModel->create($nom, $prenom, $email, $telephone, $adresse, $date_naissance, $statut);
+        header('Location: ../../index.php?message=created');
+        exit;
+    }
+} catch (Exception $e) {
+    echo "<div style='color:red; font-weight:bold; padding:1em; background:#ffeaea; border:2px solid #e53935; margin:2em auto; max-width:600px; border-radius:8px;'>
+            Une erreur est survenue : " . htmlspecialchars($e->getMessage()) . "
+          </div>";
     exit;
 }
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajouter un membre</title>
     <link rel="stylesheet" href="../../css/style.css">
 </head>
+
 <body>
     <div class="bubble bubble1"></div>
     <div class="bubble bubble2"></div>
@@ -67,4 +76,5 @@ if ($_POST) {
         <a href="../../index.php" class="btn-action">Retour</a>
     </form>
 </body>
+
 </html>

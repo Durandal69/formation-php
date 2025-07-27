@@ -1,30 +1,39 @@
 <?php
-require_once '../../config/database.php';
-require_once '../../classes/Auteur.php';
+try {
+    require_once '../../config/database.php';
+    require_once '../../classes/Auteur.php';
 
-$auteurModel = new Auteur($pdo);
-$errors = [];
+    $auteurModel = new Auteur($pdo);
+    $errors = [];
 
-if ($_POST) {
-    $nom = $_POST['Nom'] ?? '';
-    $prenom = $_POST['Prénom'] ?? '';
-    $nationalite = isset($_POST['Nationalité']) && $_POST['Nationalité'] !== '' ? $_POST['Nationalité'] : null; // Valeur null par défaut si vide
-    $date_naissance = isset($_POST['Date_de_naissance']) && $_POST['Date_de_naissance'] !== '' ? $_POST['Date_de_naissance'] : null; // Valeur null par défaut si vide
-    $biographie = isset($_POST['Biographie']) && $_POST['Biographie'] !== '' ? $_POST['Biographie'] : null; // Valeur null par défaut si vide
-    // Date_de_création automatique en BDD (NOW())
+    if ($_POST) {
+        $nom = $_POST['Nom'] ?? '';
+        $prenom = $_POST['Prénom'] ?? '';
+        $nationalite = isset($_POST['Nationalité']) && $_POST['Nationalité'] !== '' ? $_POST['Nationalité'] : null; // Valeur null par défaut si vide
+        $date_naissance = isset($_POST['Date_de_naissance']) && $_POST['Date_de_naissance'] !== '' ? $_POST['Date_de_naissance'] : null; // Valeur null par défaut si vide
+        $biographie = isset($_POST['Biographie']) && $_POST['Biographie'] !== '' ? $_POST['Biographie'] : null; // Valeur null par défaut si vide
+        // Date_de_création automatique en BDD (NOW())
 
-    $auteurModel->create($nom, $prenom, $nationalite, $date_naissance, $biographie);
-    header('Location: ../../index.php?message=created');
+        $auteurModel->create($nom, $prenom, $nationalite, $date_naissance, $biographie);
+        header('Location: ../../index.php?message=created');
+    }
+} catch (Exception $e) {
+    echo "<div style='color:red; font-weight:bold; padding:1em; background:#ffeaea; border:2px solid #e53935; margin:2em auto; max-width:600px; border-radius:8px;'>
+            Une erreur est survenue : " . htmlspecialchars($e->getMessage()) . "
+          </div>";
+    exit;
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>Ajouter un auteur</title>
     <link rel="stylesheet" href="../../css/style.css">
 </head>
+
 <body>
     <div class="bubble bubble1"></div>
     <div class="bubble bubble2"></div>
@@ -58,4 +67,5 @@ if ($_POST) {
         <a href="../../index.php" class="btn-action">Retour</a>
     </form>
 </body>
+
 </html>
