@@ -14,3 +14,5 @@ Par la suite, il y a le CRUD pour les livres, les auteurs et les membres, ainsi 
 Dans le dossier de la bibliothèque, il y a aussi le fichier bibli.sql pour avoir les données de la base de données.
 Le dossier tests est inutilisé dans cet exercice. Ainsi que le fichier includes/config.php qui n'est plus utilisé non plus (mais j'ai laissé en commentaire ce que j'avais travaillé dessus), à l'origine il était nommé "functions.php" mais j'ai préféré changer la façon de faire en laissant la plupart des fonctions dans les classes.
 06/08/2025
+
+Edit : Dans les membres, on peut y voir aussi les statistiques des emprunts, le nombre total, les en cours, et lesquels.
