@@ -39,9 +39,9 @@ try {
 </head>
 
 <body>
-<?php
-    require_once 'includes/header.php'; 
-?>
+    <?php
+    require_once 'includes/header.php';
+    ?>
     <div class="bubble bubble1"></div>
     <div class="bubble bubble2"></div>
     <div class="bubble bubble3"></div>
@@ -61,18 +61,22 @@ try {
     <!-- Formulaire de recherche -->
     <div>
         <form method="GET" action="search.php">
-            <div><input type="text" name="recherche" placeholder="Rechercher un livre, auteur..." class="box-input" value="<?php echo htmlspecialchars($_GET['q'] ?? ''); ?>"></div>
+            <div><input type="text" name="recherche" placeholder="Rechercher un livre, auteur..." class="box-input" value="<?php echo htmlspecialchars($_GET['recherche'] ?? ''); ?>"></div>
             <div><select name="type">
-                <option value="livres" <?php echo ($_GET['type'] ?? '') === 'livres' ? 'selected' : ''; ?>>Livres</option>
-                <option value="auteurs" <?php echo ($_GET['type'] ?? '') === 'auteurs' ? 'selected' : ''; ?>>Auteurs</option>
-                <option value="membres" <?php echo ($_GET['type'] ?? '') === 'membres' ? 'selected' : ''; ?>>Membres</option>
-            </select></div>
+                    <option value="livres" <?php echo ($_GET['type'] ?? '') === 'livres' ? 'selected' : ''; ?>>Livres</option>
+                    <option value="auteurs" <?php echo ($_GET['type'] ?? '') === 'auteurs' ? 'selected' : ''; ?>>Auteurs</option>
+                    <option value="membres" <?php echo ($_GET['type'] ?? '') === 'membres' ? 'selected' : ''; ?>>Membres</option>
+                </select></div>
             <input type="submit" value="Rechercher" class="btn-action">
         </form>
     </div>
 
     <div id="tableLivres" style="display: none;">
-        <a href="pages/livres/create.php">Ajouter un livre</a>
+        <div style="display:block;">
+            <a href="pages/livres/create.php">Ajouter un livre</a>
+
+            <span class="nb-total">Nombre total de livres : <?php echo count($livres); ?></span>
+        </div>
 
         <table>
             <thead>
@@ -105,7 +109,11 @@ try {
 
 
     <div id="tableAuteurs" style="display: none;">
-        <a href="pages/auteurs/create.php">Ajouter un auteur</a>
+        <div style="display:block;">
+            <a href="pages/auteurs/create.php">Ajouter un auteur</a>
+
+            <span class="nb-total">Nombre total d'auteurs : <?php echo count($auteurs); ?></span>
+        </div>
 
         <table>
             <thead>
@@ -137,8 +145,11 @@ try {
 
 
 
-<div id="tableMembres" style="display: none;">
-        <a href="pages/membres/create.php">Ajouter un membre</a>
+    <div id="tableMembres" style="display: none;">
+        <div style="display:block;">
+            <span class="nb-total">Nombre total de membres : <?php echo count($membres); ?></span>
+            <a href="pages/membres/create.php">Ajouter un membre</a>
+        </div>
 
         <table>
             <thead>
@@ -150,7 +161,7 @@ try {
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody> 
+            <tbody>
                 <?php foreach ($membres as $membre): ?>
                     <tr>
                         <td><?php echo htmlspecialchars($membre->ID); ?></td>
@@ -168,9 +179,12 @@ try {
         </table>
     </div>
 
+    <div id="tableEmprunts" style="display: none;">
+        <div style="display:block;">
+            <a href="pages/emprunts/create.php">Ajouter un emprunt</a>
+            <span class="nb-total">Nombre total d'emprunts : <?php echo count($emprunts); ?></span>
+        </div>
 
-<div id="tableEmprunts" style="display: none;">
-        <a href="pages/emprunts/create.php">Ajouter un emprunt</a>
 
         <table>
             <thead>
@@ -221,9 +235,10 @@ try {
 
     <script src="js/script.js"></script>
 
-<?php
+    <?php
     require_once 'includes/footer.php';
-?>
+    ?>
 
 </body>
+
 </html>

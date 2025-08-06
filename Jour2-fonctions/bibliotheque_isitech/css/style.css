@@ -138,6 +138,16 @@ textarea {
     box-shadow: 0 2px 8px #818cf822;
 }
 
+.nb-total {
+    font-weight: bold;
+    color: #4f46e5;
+    margin-top: 3rem;
+    float: right;
+    align-items: right;
+    font-size: 1.08rem;
+    margin-right: 2rem;
+}
+
 select {
     width: 100%;
     padding: 12px 14px;

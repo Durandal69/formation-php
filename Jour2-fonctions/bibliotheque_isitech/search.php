@@ -45,6 +45,19 @@ try {
 <body>
     <?php require_once 'includes/header.php'; ?>
     
+    <!-- Formulaire de recherche -->
+    <div>
+        <form method="GET" action="search.php">
+            <div><input type="text" name="recherche" placeholder="Rechercher un livre, auteur..." class="box-input" value="<?php echo htmlspecialchars($_GET['recherche'] ?? ''); ?>"></div>
+            <div><select name="type">
+                <option value="livres" <?php echo ($_GET['type'] ?? '') === 'livres' ? 'selected' : ''; ?>>Livres</option>
+                <option value="auteurs" <?php echo ($_GET['type'] ?? '') === 'auteurs' ? 'selected' : ''; ?>>Auteurs</option>
+                <option value="membres" <?php echo ($_GET['type'] ?? '') === 'membres' ? 'selected' : ''; ?>>Membres</option>
+            </select></div>
+            <input type="submit" value="Rechercher" class="btn-action">
+        </form>
+    </div>
+
     <main class="container">
         <h1>Résultats pour « <?= htmlspecialchars($query) ?> » dans <?= htmlspecialchars($type) ?></h1>
         
