@@ -5,7 +5,7 @@ try {
     require_once 'config/database.php';
 
     $type = $_GET['type'] ?? 'livres';
-    $query = trim($_GET['q'] ?? '');
+    $query = trim($_GET['recherche'] ?? '');
     $results = [];
 
     if ($query !== '') {

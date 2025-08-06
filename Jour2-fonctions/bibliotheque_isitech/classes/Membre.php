@@ -84,7 +84,7 @@ class Membre
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute(['%' . $searchTerm . '%', '%' . $searchTerm . '%', '%' . $searchTerm . '%']);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
-    }
+    } // pour m'expliquer à moi-même : LIKE permet de faire des recherches floues, le % est un joker qui remplace n'importe quelle chaîne de caractères, le ? est un placeholder pour éviter les injections SQL. Et il y a trois placeholders car on cherche dans trois colonnes différentes (Nom, Prénom, Email). Donc on met chaque terme de recherche dans les trois placeholders, ce qui permet de trouver des membres qui ont le terme recherché dans n'importe quelle colonne.
 
     public function getMemberStats($id)
     {

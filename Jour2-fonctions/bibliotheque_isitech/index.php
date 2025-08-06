@@ -61,12 +61,12 @@ try {
     <!-- Formulaire de recherche -->
     <div>
         <form method="GET" action="search.php">
-            <div><input type="text" name="q" placeholder="Rechercher un livre, auteur..." class="box-input" value="<?php echo htmlspecialchars($_GET['q'] ?? ''); ?>"></div>
-            <select name="type">
+            <div><input type="text" name="recherche" placeholder="Rechercher un livre, auteur..." class="box-input" value="<?php echo htmlspecialchars($_GET['q'] ?? ''); ?>"></div>
+            <div><select name="type">
                 <option value="livres" <?php echo ($_GET['type'] ?? '') === 'livres' ? 'selected' : ''; ?>>Livres</option>
                 <option value="auteurs" <?php echo ($_GET['type'] ?? '') === 'auteurs' ? 'selected' : ''; ?>>Auteurs</option>
                 <option value="membres" <?php echo ($_GET['type'] ?? '') === 'membres' ? 'selected' : ''; ?>>Membres</option>
-            </select>
+            </select></div>
             <input type="submit" value="Rechercher" class="btn-action">
         </form>
     </div>
