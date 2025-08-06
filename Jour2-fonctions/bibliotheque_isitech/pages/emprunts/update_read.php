@@ -39,6 +39,8 @@ try {
 </head>
 
 <body>
+    <?php require_once '../../includes/header.php'; ?>
+
     <h1>Modifier un emprunt</h1>
     <form method="POST">
         <div>
@@ -73,6 +75,7 @@ try {
         <input type="reset" class="btn-action" value="Annuler">
         <a href="read.php?id=<?php echo $emprunt->ID; ?>" class="btn-action">Retour</a>
     </form>
+    <?php require_once '../../includes/footer.php'; ?>
 </body>
 
 </html>

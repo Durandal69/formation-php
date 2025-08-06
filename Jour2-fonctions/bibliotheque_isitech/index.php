@@ -6,6 +6,8 @@ try {
     require_once 'classes/Membre.php';
     require_once 'classes/Emprunt.php';
 
+
+
     $livreModel = new Livre($pdo);
     $livres = $livreModel->getAll();
 
@@ -37,19 +39,38 @@ try {
 </head>
 
 <body>
+<?php
+    require_once 'includes/header.php'; 
+?>
     <div class="bubble bubble1"></div>
     <div class="bubble bubble2"></div>
     <div class="bubble bubble3"></div>
     <div class="bubble bubble4"></div>
     <div class="bubble bubble5"></div>
-    <h1>Bibliothèque</h1>
+    <!-- <h1>Bibliothèque</h1> -->
 
 
 
-    <h1><button class="btn-action" onclick="toggleAll(true, false, false, false)">Liste des livres</button>
-    <button class="btn-action" onclick="toggleAll(false, true, false, false)">Liste des auteurs</button>
-    <button class="btn-action" onclick="toggleAll(false, false, true, false)">Liste des membres</button>
-    <button class="btn-action" onclick="toggleAll(false, false, false, true)">Liste des emprunts</button></h1>
+    <h1>
+        <button class="btn-action" onclick="toggleAll(true, false, false, false)">Liste des livres</button>
+        <button class="btn-action" onclick="toggleAll(false, true, false, false)">Liste des auteurs</button>
+        <button class="btn-action" onclick="toggleAll(false, false, true, false)">Liste des membres</button>
+        <button class="btn-action" onclick="toggleAll(false, false, false, true)">Liste des emprunts</button>
+    </h1>
+
+    <!-- Formulaire de recherche -->
+    <div>
+        <form method="GET" action="search.php">
+            <div><input type="text" name="q" placeholder="Rechercher un livre, auteur..." class="box-input" value="<?php echo htmlspecialchars($_GET['q'] ?? ''); ?>"></div>
+            <select name="type">
+                <option value="livres" <?php echo ($_GET['type'] ?? '') === 'livres' ? 'selected' : ''; ?>>Livres</option>
+                <option value="auteurs" <?php echo ($_GET['type'] ?? '') === 'auteurs' ? 'selected' : ''; ?>>Auteurs</option>
+                <option value="membres" <?php echo ($_GET['type'] ?? '') === 'membres' ? 'selected' : ''; ?>>Membres</option>
+            </select>
+            <input type="submit" value="Rechercher" class="btn-action">
+        </form>
+    </div>
+
     <div id="tableLivres" style="display: none;">
         <a href="pages/livres/create.php">Ajouter un livre</a>
 
@@ -199,6 +220,10 @@ try {
     <?php endif; ?>
 
     <script src="js/script.js"></script>
-</body>
 
+<?php
+    require_once 'includes/footer.php';
+?>
+
+</body>
 </html>

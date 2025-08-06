@@ -70,4 +70,13 @@ class Livre
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([$id]);
     }
+
+    // SEARCH - Rechercher des livres par titre
+    public function searchByTitle($searchTerm)
+    {
+        $sql = "SELECT * FROM livres WHERE Titre LIKE ? ORDER BY Titre";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['%' . $searchTerm . '%']);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
 }

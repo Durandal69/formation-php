@@ -27,51 +27,58 @@ try {
     exit;
 }
 
+$pageTitle = 'Modifier un emprunt';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
-    <title>Modifier un emprunt</title>
+    <title><?= $pageTitle ?></title>
     <link rel="stylesheet" href="../../css/style.css">
 </head>
 
 <body>
-    <h1>Modifier un emprunt</h1>
-    <form method="POST">
-        <div>
-            <label for="ID_livre">ID Livre :</label>
-            <input type="number" name="ID_livre" id="ID_livre" value="<?php echo htmlspecialchars($emprunt->ID_livre ?? ''); ?>" required>
-        </div>
-        <div>
-            <label for="ID_membre">ID Membre :</label>
-            <input type="number" name="ID_membre" id="ID_membre" value="<?php echo htmlspecialchars($emprunt->ID_membre ?? ''); ?>" required>
-        </div>
-        <div>
-            <label for="Date_emprunt">Date Emprunt :</label>
-            <input type="date" name="Date_emprunt" id="Date_emprunt" value="<?php echo date('Y-m-d', strtotime($emprunt->Date_emprunt ?? '')); ?>" required>
-        </div>
-        <div>
-            <label for="Date_retour_prévue">Date Retour Prévue :</label>
-            <input type="date" name="Date_retour_prévue" id="Date_retour_prévue" value="<?php echo date('Y-m-d', strtotime($emprunt->Date_retour_prévue ?? '')); ?>" required>
-        </div>
-        <div>
-            <label for="Date_retour_effective">Date Retour Effective :</label>
-            <input type="date" name="Date_retour_effective" id="Date_retour_effective" value="<?php echo !empty($emprunt->Date_retour_effective) ? date('Y-m-d', strtotime($emprunt->Date_retour_effective)) : ''; ?>">
-        </div>
-        <div>
-            <label for="Prolongation">Prolongation :</label>
-            <input type="date" name="Prolongation" id="Prolongation" value="<?php echo !empty($emprunt->Prolongation) ? date('Y-m-d', strtotime($emprunt->Prolongation)) : ''; ?>">
-        </div>
-        <div>
-            <label for="Notes">Notes :</label>
-            <textarea name="Notes" id="Notes"><?php echo htmlspecialchars($emprunt->Notes ?? ''); ?></textarea>
-        </div>
-        <input type="submit" value="Mettre à jour" class="btn-action">
-        <input type="reset" class="btn-action" value="Annuler">
-        <a href="../../index.php" class="btn-action">Retour</a>
-    </form>
+    <?php require_once '../../includes/header.php'; ?>
+
+    <main class="container">
+        <h1>Modifier un emprunt</h1>
+        <form method="POST">
+            <div>
+                <label for="ID_livre">ID Livre :</label>
+                <input type="number" name="ID_livre" id="ID_livre" value="<?php echo htmlspecialchars($emprunt->ID_livre ?? ''); ?>" required>
+            </div>
+            <div>
+                <label for="ID_membre">ID Membre :</label>
+                <input type="number" name="ID_membre" id="ID_membre" value="<?php echo htmlspecialchars($emprunt->ID_membre ?? ''); ?>" required>
+            </div>
+            <div>
+                <label for="Date_emprunt">Date Emprunt :</label>
+                <input type="date" name="Date_emprunt" id="Date_emprunt" value="<?php echo date('Y-m-d', strtotime($emprunt->Date_emprunt ?? '')); ?>" required>
+            </div>
+            <div>
+                <label for="Date_retour_prévue">Date Retour Prévue :</label>
+                <input type="date" name="Date_retour_prévue" id="Date_retour_prévue" value="<?php echo date('Y-m-d', strtotime($emprunt->Date_retour_prévue ?? '')); ?>" required>
+            </div>
+            <div>
+                <label for="Date_retour_effective">Date Retour Effective :</label>
+                <input type="date" name="Date_retour_effective" id="Date_retour_effective" value="<?php echo !empty($emprunt->Date_retour_effective) ? date('Y-m-d', strtotime($emprunt->Date_retour_effective)) : ''; ?>">
+            </div>
+            <div>
+                <label for="Prolongation">Prolongation :</label>
+                <input type="date" name="Prolongation" id="Prolongation" value="<?php echo !empty($emprunt->Prolongation) ? date('Y-m-d', strtotime($emprunt->Prolongation)) : ''; ?>">
+            </div>
+            <div>
+                <label for="Notes">Notes :</label>
+                <textarea name="Notes" id="Notes"><?php echo htmlspecialchars($emprunt->Notes ?? ''); ?></textarea>
+            </div>
+            <input type="submit" value="Mettre à jour" class="btn-action">
+            <input type="reset" class="btn-action" value="Annuler">
+            <a href="../../index.php" class="btn-action">Retour</a>
+        </form>
+    </main>
+
+    <?php require_once '../../includes/footer.php'; ?>
 </body>
 
 </html>

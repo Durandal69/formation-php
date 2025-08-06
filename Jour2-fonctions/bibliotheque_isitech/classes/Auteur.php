@@ -49,4 +49,13 @@ class Auteur
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([$id]);
     }
+
+    // SEARCH - Rechercher des auteurs par nom ou prénom
+    public function searchByName($searchTerm)
+    {
+        $sql = "SELECT * FROM auteurs WHERE Nom LIKE ? OR Prénom LIKE ? ORDER BY Nom";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['%' . $searchTerm . '%', '%' . $searchTerm . '%']);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
 }

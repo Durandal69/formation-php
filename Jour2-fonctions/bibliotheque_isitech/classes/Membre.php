@@ -15,7 +15,7 @@ class Membre
     public function __construct($pdo, $nom = null, $prenom = null, $email = null)
     {
         $this->pdo = $pdo;
-        
+
         if ($nom && $prenom && $email) {
             $this->nom = $nom;
             $this->prenom = $prenom;
@@ -75,5 +75,39 @@ class Membre
     {
         $stmt = $this->pdo->prepare('DELETE FROM membres WHERE id = ?');
         return $stmt->execute([$id]);
+    }
+
+    // SEARCH - Rechercher des membres par nom, prénom ou email
+    public function searchByName($searchTerm)
+    {
+        $sql = "SELECT * FROM membres WHERE Nom LIKE ? OR Prénom LIKE ? OR Email LIKE ? ORDER BY Nom";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['%' . $searchTerm . '%', '%' . $searchTerm . '%', '%' . $searchTerm . '%']);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function getMemberStats($id)
+    {
+        $sql = "SELECT 
+                COUNT(*) as total_emprunts,
+                COUNT(CASE WHEN Date_retour_effective IS NULL THEN 1 END) as emprunts_en_cours,
+                COUNT(CASE WHEN Date_retour_effective IS NOT NULL THEN 1 END) as emprunts_termines
+            FROM emprunts 
+            WHERE ID_membre = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_OBJ);
+    }
+
+    public function getMemberEmprunts($id)
+    {
+    $sql = "SELECT emprunts.*, livres.Titre 
+            FROM emprunts 
+            JOIN livres ON emprunts.ID_livre = livres.id 
+            WHERE emprunts.ID_membre = ? 
+            ORDER BY emprunts.Date_emprunt DESC";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([$id]);
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 }

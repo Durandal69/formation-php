@@ -38,70 +38,69 @@ try {
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creation d'un livre</title>
+    <title>Ajouter un livre</title>
     <link rel="stylesheet" href="../../css/style.css">
 </head>
 
 <body>
-    <div class="bubble bubble1"></div>
-    <div class="bubble bubble2"></div>
-    <div class="bubble bubble3"></div>
-    <div class="bubble bubble4"></div>
-    <div class="bubble bubble5"></div>
-    <h1>Créer un nouveau livre</h1>
-    <form method="POST">
-        <div>
-            <label for="Titre">Titre:</label>
-            <input type="text" name="Titre" id="Titre" required>
-        </div>
-        <div>
-            <label for="ISBN">ISBN:</label>
-            <input type="text" name="ISBN" id="ISBN" required>
-        </div>
-        <div>
-            <label for="Reference_vers_auteur">Auteur ID:</label>
-            <input type="number" name="Reference_vers_auteur" id="Reference_vers_auteur">
-        </div>
-        <div>
-            <label for="Reference_vers_genre">Genre ID:</label>
-            <input type="number" name="Reference_vers_genre" id="Reference_vers_genre">
-        </div>
-        <div>
-            <label for="Annee_de_publication">Année de publication:</label>
-            <input type="number" name="Annee_de_publication" id="Annee_de_publication" min="0000" max="6000">
-        </div>
-        <div>
-            <label for="Nombre_de_pages">Nombre de pages:</label>
-            <input type="number" name="Nombre_de_pages" id="Nombre_de_pages">
-        </div>
-        <div>
-            <label for="Resume">Résumé:</label>
-            <textarea name="Resume" id="Resume"></textarea>
-        </div>
-        <div>
-            <label for="Status_de_disponibilite">Statut de disponibilité:</label>
-            <select name="Status_de_disponibilite" id="Status_de_disponibilite">
-                <option value="disponible">Disponible</option>
-                <option value="non_disponible">Non disponible</option>
-                <option value="non_reference">Non référencé</option>
-            </select>
-        </div>
-        <div>
-            <label for="Index_appropries">Index appropriés:</label>
-            <input type="text" name="Index_appropries" id="Index_appropries">
-        </div>
+    <?php require_once '../../includes/header.php'; ?>
+    
+    <main class="container">
+        <h1>Ajouter un livre</h1>
+        <form method="POST">
+            <div>
+                <label for="Titre">Titre:</label>
+                <input type="text" name="Titre" id="Titre" required>
+            </div>
+            <div>
+                <label for="ISBN">ISBN:</label>
+                <input type="text" name="ISBN" id="ISBN" required>
+            </div>
+            <div>
+                <label for="Reference_vers_auteur">Auteur ID:</label>
+                <input type="number" name="Reference_vers_auteur" id="Reference_vers_auteur">
+            </div>
+            <div>
+                <label for="Reference_vers_genre">Genre ID:</label>
+                <input type="number" name="Reference_vers_genre" id="Reference_vers_genre">
+            </div>
+            <div>
+                <label for="Annee_de_publication">Année de publication:</label>
+                <input type="number" name="Annee_de_publication" id="Annee_de_publication" min="0000" max="6000">
+            </div>
+            <div>
+                <label for="Nombre_de_pages">Nombre de pages:</label>
+                <input type="number" name="Nombre_de_pages" id="Nombre_de_pages">
+            </div>
+            <div>
+                <label for="Resume">Résumé:</label>
+                <textarea name="Resume" id="Resume"></textarea>
+            </div>
+            <div>
+                <label for="Status_de_disponibilite">Statut de disponibilité:</label>
+                <select name="Status_de_disponibilite" id="Status_de_disponibilite">
+                    <option value="disponible">Disponible</option>
+                    <option value="non_disponible">Non disponible</option>
+                    <option value="non_reference">Non référencé</option>
+                </select>
+            </div>
+            <div>
+                <label for="Index_appropries">Index appropriés:</label>
+                <input type="text" name="Index_appropries" id="Index_appropries">
+            </div>
 
 
 
-        <input type="submit" value="Ajouter">
-        <input type="reset" class="btn-action" value="Annuler">
-        <a href="../../index.php" class="btn-action">Retour</a>
-    </form>
+            <input type="submit" value="Ajouter">
+            <input type="reset" class="btn-action" value="Annuler">
+            <a href="../../index.php" class="btn-action">Retour</a>
+        </form>
+    </main>
+    
+    <?php require_once '../../includes/footer.php'; ?>
 </body>
-
 </html>

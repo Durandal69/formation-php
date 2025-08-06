@@ -1,4 +1,5 @@
 <?php
+$pageTitle = 'Ajouter un emprunt';
 
 try {
     require_once '../../config/database.php';
@@ -32,24 +33,30 @@ try {
 
 <head>
     <meta charset="UTF-8">
-    <title>Ajouter un emprunt</title>
+    <title><?= $pageTitle ?></title>
     <link rel="stylesheet" href="../../css/style.css">
 </head>
 
 <body>
-    <h1>Ajouter un emprunt</h1>
-    <form method="POST">
-        <input type="number" name="ID_livre" placeholder="ID livre" required>
-        <input type="number" name="ID_membre" placeholder="ID membre" required>
-        <input type="date" name="Date_emprunt" placeholder="Date emprunt" required>
-        <input type="date" name="Date_retour_prévue" placeholder="Date retour prévue" required>
-        <input type="date" name="Date_retour_effective" placeholder="Date retour effective">
-        <input type="text" name="Prolongation" placeholder="Prolongation">
-        <textarea name="Notes" placeholder="Notes"></textarea>
-        <input type="submit" value="Ajouter" class="btn-action">
-        <input type="reset" class="btn-action" value="Annuler">
-        <a href="../../index.php" class="btn-action">Retour</a>
-    </form>
+    <?php require_once '../../includes/header.php'; ?>
+
+    <main class="container">
+        <h1>Ajouter un emprunt</h1>
+        <form method="POST">
+            <input type="number" name="ID_livre" placeholder="ID livre" required>
+            <input type="number" name="ID_membre" placeholder="ID membre" required>
+            <input type="date" name="Date_emprunt" placeholder="Date emprunt" required>
+            <input type="date" name="Date_retour_prévue" placeholder="Date retour prévue" required>
+            <input type="date" name="Date_retour_effective" placeholder="Date retour effective">
+            <input type="text" name="Prolongation" placeholder="Prolongation">
+            <textarea name="Notes" placeholder="Notes"></textarea>
+            <input type="submit" value="Ajouter" class="btn-action">
+            <input type="reset" class="btn-action" value="Annuler">
+            <a href="../../index.php" class="btn-action">Retour</a>
+        </form>
+    </main>
+
+    <?php require_once '../../includes/footer.php'; ?>
 </body>
 
 </html>

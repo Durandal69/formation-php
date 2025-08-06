@@ -17,58 +17,61 @@ try {
     exit;
 }
 
-
+$pageTitle = 'Détails du livre';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Détails du livre</title>
+    <title><?= $pageTitle ?></title>
     <link rel="stylesheet" href="../../css/style.css">
 </head>
-
 <body>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Titre</th>
-                <th>ISBN</th>
-                <th>Auteur</th>
-                <th>Genre</th>
-                <th>Date de publication</th>
-                <th>Nombre de pages</th>
-                <th>Résumé</th>
-                <th>Disponible</th>
-                <th>Date d'ajout</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if ($livres): ?>
+    <?php require_once '../../includes/header.php'; ?>
+    
+    <main class="container">
+        <h1>Détails du livre</h1>
+        <table>
+            <thead>
                 <tr>
-                    <td><?php echo htmlspecialchars($livres->id); ?></td>
-                    <td><?php echo htmlspecialchars($livres->Titre); ?></td>
-                    <td><?php echo htmlspecialchars($livres->ISBN); ?></td>
-                    <td><?php echo htmlspecialchars($livres->Nom_complet_auteur); ?></td>
-                    <td><?php echo htmlspecialchars($livres->Nom_du_genre); ?></td>
-                    <td><?php echo htmlspecialchars($livres->Annee_de_publication ?? ''); ?></td>
-                    <td><?php echo htmlspecialchars($livres->Nombre_de_pages ?? ''); ?></td>
-                    <td><textarea name="resume" id="resume" cols="20" rows="3" readonly><?php echo htmlspecialchars($livres->Resume ?? ''); ?></textarea></td>
-                    <td><?php echo htmlspecialchars($livres->Status_de_disponibilite ?? ''); ?></td>
-                    <td><?php echo htmlspecialchars($livres->Date_ajout_automatique ?? ''); ?></td>
-                    <td>
-                        <a href="update.php?id=<?php echo $livres->id; ?>">📝</a>
-                        <a href="delete.php?id=<?php echo $livres->id; ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce livre ?');">❌</a>
-                    </td>
+                    <th>ID</th>
+                    <th>Titre</th>
+                    <th>ISBN</th>
+                    <th>Auteur</th>
+                    <th>Genre</th>
+                    <th>Date de publication</th>
+                    <th>Nombre de pages</th>
+                    <th>Résumé</th>
+                    <th>Disponible</th>
+                    <th>Date d'ajout</th>
+                    <th>Actions</th>
                 </tr>
-            <?php endif; ?>
-        </tbody>
-    </table>
-    <a href="../../index.php" class="btn-action">Retour</a>
+            </thead>
+            <tbody>
+                <?php if ($livres): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($livres->id); ?></td>
+                        <td><?php echo htmlspecialchars($livres->Titre); ?></td>
+                        <td><?php echo htmlspecialchars($livres->ISBN); ?></td>
+                        <td><?php echo htmlspecialchars($livres->Nom_complet_auteur); ?></td>
+                        <td><?php echo htmlspecialchars($livres->Nom_du_genre); ?></td>
+                        <td><?php echo htmlspecialchars($livres->Annee_de_publication ?? ''); ?></td>
+                        <td><?php echo htmlspecialchars($livres->Nombre_de_pages ?? ''); ?></td>
+                        <td><textarea name="resume" id="resume" cols="20" rows="3" readonly><?php echo htmlspecialchars($livres->Resume ?? ''); ?></textarea></td>
+                        <td><?php echo htmlspecialchars($livres->Status_de_disponibilite ?? ''); ?></td>
+                        <td><?php echo htmlspecialchars($livres->Date_ajout_automatique ?? ''); ?></td>
+                        <td>
+                            <a href="update.php?id=<?php echo $livres->id; ?>">📝</a>
+                            <a href="delete.php?id=<?php echo $livres->id; ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce livre ?');">❌</a>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+        <a href="../../index.php" class="btn-action">Retour</a>
+    </main>
+    
+    <?php require_once '../../includes/footer.php'; ?>
 </body>
-
 </html>
