@@ -43,13 +43,34 @@ try {
     <main class="container">
         <h1>Ajouter un emprunt</h1>
         <form method="POST">
-            <input type="number" name="ID_livre" placeholder="ID livre" required>
-            <input type="number" name="ID_membre" placeholder="ID membre" required>
-            <input type="date" name="Date_emprunt" placeholder="Date emprunt" required>
-            <input type="date" name="Date_retour_prévue" placeholder="Date retour prévue" required>
-            <input type="date" name="Date_retour_effective" placeholder="Date retour effective">
-            <input type="text" name="Prolongation" placeholder="Prolongation">
-            <textarea name="Notes" placeholder="Notes"></textarea>
+            <div>
+                <label for="ID_livre">ID Livre:</label>
+                <input type="number" name="ID_livre" id="ID_livre" required>
+            </div>
+            <div>
+                <label for="ID_membre">ID Membre:</label>
+                <input type="number" name="ID_membre" id="ID_membre" required>
+            </div>
+            <div>
+                <label for="Date_emprunt">Date Emprunt:</label>
+                <input type="date" name="Date_emprunt" id="Date_emprunt" required>
+            </div>
+            <div>
+                <label for="Date_retour_prévue">Date Retour Prévue:</label>
+                <input type="date" name="Date_retour_prévue" id="Date_retour_prévue" required>
+            </div>
+            <div>
+                <label for="Date_retour_effective">Date Retour Effective:</label>
+                <input type="date" name="Date_retour_effective" id="Date_retour_effective">
+            </div>
+            <div>
+                <label for="Prolongation">Prolongation:</label>
+                <input type="text" name="Prolongation" id="Prolongation">
+            </div>
+            <div>
+                <label for="Notes">Notes:</label>
+                <textarea name="Notes" id="Notes"></textarea>
+            </div>
             <input type="submit" value="Ajouter" class="btn-action">
             <input type="reset" class="btn-action" value="Annuler">
             <a href="../../index.php" class="btn-action">Retour</a>
